@@ -59,6 +59,7 @@ test.only('Child windows handling', async ({browser}) =>
 {
     const context = await browser.newContext();
     const page = await context.newPage(); 
+    const userName = page.locator('#username');
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
     //This is for blinklink css
     const documentLink = page.locator("[href*='documents-request']");
@@ -71,6 +72,12 @@ test.only('Child windows handling', async ({browser}) =>
     await newPage.waitForSelector(".red");
 
     const text = await newPage.locator(".red").textContent();
-    console.log(text);
+    const arrayText = text.split("@")
+    const domain = arrayText[1].split(" ") [0]
+    console.log(domain);
+    await page.pause();
+    await page.locator("#username").fill(domain);
+    
+    console.log(await page.locator("#username").textContent());
     
 });
