@@ -55,7 +55,7 @@ test('UI Controls_DropDown_RadioBTN', async ({page}) =>
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
 });
 
-test.only('Child windows handling', async ({browser}) =>
+test('Child windows handling', async ({browser}) =>
 {
     const context = await browser.newContext();
     const page = await context.newPage(); 
@@ -75,9 +75,11 @@ test.only('Child windows handling', async ({browser}) =>
     const arrayText = text.split("@")
     const domain = arrayText[1].split(" ") [0]
     console.log(domain);
-    await page.pause();
+    // await page.pause();
     await page.locator("#username").fill(domain);
     
     console.log(await page.locator("#username").textContent());
     
 });
+
+
