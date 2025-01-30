@@ -9,9 +9,13 @@ test('E2E flow', async ({ page }) => {
    const products = page.locator(".card-body")
    const productName = 'Banarsi Saree';
    const cartBtn = page.locator("[routerlink*='cart']");
+   const email = "qaops@yopmail.com";
+   const ccDetails = page.locator(".input.txt");
+   const orderId = page.locator(".em-spacer-1 .ng-star-inserted");
 
 
-   await userName.fill("qaops@yopmail.com");
+
+   await userName.fill(email);
    await password.fill("Test@12345");
    await signIn.click();
    await page.waitForLoadState('networkidle');
@@ -33,11 +37,13 @@ test('E2E flow', async ({ page }) => {
    const bool = await page.locator("h3:has-text('Banarsi Saree')").isVisible();
    expect(bool).toBeTruthy();
    await page.locator("text=Checkout").click();
+   //Verify Email id
+   expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+
    //Auto suggestions dropdown
    await page.locator("[placeholder*='Country']").pressSequentially("Ind", { delay: 100 });
    const dropdown = page.locator(".ta-results");
    await dropdown.waitFor();
-   // await page.pause();
    const optionsCount = await dropdown.locator("button").count();
    for (let i = 0; i < optionsCount; ++i) {
       const text = await dropdown.locator("button").nth(i).textContent();
@@ -47,5 +53,16 @@ test('E2E flow', async ({ page }) => {
       }
    }
 
+   //CC Details  
+   await ccDetails.nth(1).fill('666');
+   await ccDetails.nth(2).fill("Rahul");
+   await ccDetails.nth(3).fill("Testcoupon");
+   await page.locator(".action__submit").click();
+   //Verify Thanks text
+   await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+   //Get Order id
+   const getOrderId = await orderId.textContent();
+   console.log(getOrderId);
 });
+
 
