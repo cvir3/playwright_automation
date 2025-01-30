@@ -16,11 +16,15 @@ export default defineConfig({
     headless : false,
     screenshot: 'on',
     trace: 'on',
+    viewport: null,
+    launchOptions: {
+      args: ['--start-maximized']
+    },
   },
   // projects: [
   //   {
   //     name: 'chromium',
-  //     use: { ...devices['Desktop Chrome'] },
+  //     use: { ...devices['Desktop Chrome'] },      
   //   },
   //   {
   //     name: 'firefox',
