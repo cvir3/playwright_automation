@@ -29,5 +29,5 @@ test('DataIntegrations', async ({ page }) => {
   await page.getByTestId('rf__node-c08cb5ee-23ee-4cc2-a49b-c9da528e2a88').click();
   await page.getByTestId('rf__node-c08cb5ee-23ee-4cc2-a49b-c9da528e2a88').getByRole('button').click();
   await page.getByText('C_Chauhan, Viren X (Reflik').click();
-  await page.getByRole('button', { name: 'Logout' }).click();
+  await page.getByRole('button', { name: 'Logout' }).click(); 
 });
