@@ -4,8 +4,9 @@ const { test, expect } = require("@playwright/test");
 test("Calendar validation", async ({page})=>{
 
     const months = "2";
-    const date = "14";
-    const year ="2025";
+    const date = "28";
+    const year ="2027";
+    const expectedList = [months,date,year]; //<= this is for assertion
     
     await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/offers');
     console.log(await page.title());
@@ -19,4 +20,11 @@ test("Calendar validation", async ({page})=>{
     await page.locator(`//abbr[text()='${date}']`).click();
     console.log(`Month: ${months}, Date: ${date}, Year: ${year}`);   
 
+    //assertion for calendar
+    const inputs = await page.locator(".react-date-picker__inputGroup input");
+    for (let index = 0; index < inputs.length; index++)
+    {
+        const value = inputs[index].getAttribute("value");
+        expect(value).toEqual(expectedList[index]);
+    }
 });
