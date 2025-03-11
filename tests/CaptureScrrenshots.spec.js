@@ -9,3 +9,13 @@ test('Capture Screenshots', async ({ page }) => {
     await page.screenshot({ path: 'screenshot/FullPageScreenshot.png' });
     await expect(page.locator("#displayed-text")).toBeHidden();
 });
+
+test('Visual Testing', async ({ page }) => {
+
+    // await page.goto("https://www.flightaware.com/");
+    // expect(await page.screenshot()).toMatchSnapshot('Home.png');
+
+    await page.goto("https://www.google.com/");
+    expect(await page.screenshot()).toMatchSnapshot('Home.png');
+
+});
