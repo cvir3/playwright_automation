@@ -1,6 +1,6 @@
 
 const ExcelJs = require('exceljs');
-const { test } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
 async function writeExcelTest(searchText, replaceText, change, filePath) {
 
@@ -33,12 +33,18 @@ async function readExcel(worksheet, searchText) {
 
 
 test('Upload Download excel validation', async ({ page }) => {
+
+    const textSearch = 'Mango';
+    const updateValue = '600';
     await page.goto('https://rahulshettyacademy.com/upload-download-test/index.html');
-    // await page.pause();
     const downloarPromise = page.waitForEvent('download');
     await page.getByRole('button', { name: 'Download' }).click();
     await downloarPromise;
-    writeExcelTest("Mango", "300", { rowChange: 0, colChange: 2 }, "C:\\Users\\VXChauhan\\Downloads\\download.xlsx");
+    writeExcelTest(textSearch, updateValue, { rowChange: 0, colChange: 2 }, "C:\\Users\\VXChauhan\\Downloads\\download.xlsx");
     await page.locator("#fileinput").click();
     await page.locator("#fileinput").setInputFiles("C:\\Users\\VXChauhan\\Downloads\\download.xlsx");
+    const textlocator = page.getByText(textSearch);
+    const desiredRow = await page.getByRole('row').filter({ has: textlocator });
+    await expect(desiredRow.locator("#cell-4-undefined")).toContainText(updateValue);
+
 });
