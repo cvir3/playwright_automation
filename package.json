@@ -20,6 +20,7 @@
     "@types/node": "^22.10.10"
   },
   "dependencies": {
+    "exceljs": "^4.4.0",
     "playwright_automation": "file:"
   }
 }
