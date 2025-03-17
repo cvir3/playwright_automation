@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pageObject/LoginPage');
-
+const { DashboardPage } = require('../pageObject/DashboardPage');
 
 
 
@@ -9,35 +9,20 @@ test('@Client App login', async ({ page }) => {
 
     const username = "qaops@yopmail.com";
     const password = "Test@12345"
-    const productName = 'zara coat 4';
-    const products = page.locator(".card-body");
+    const productName = 'ZARA COAT 3';
     const loginpage = new LoginPage(page);
-    loginpage.goTo();
-    loginpage.validLogin(username, password);
+    await loginpage.goTo();
+    await loginpage.validLogin(username, password);
+    const dashboardPage = new DashboardPage(page);
+    await dashboardPage.searchProductAddCart(productName);
 
-
+    // await page.pause();
+    await dashboardPage.navigateToCart();
     await page.waitForLoadState('networkidle');
-    const titles = await page.locator(".card-body b").allTextContents();
-    console.log(titles);
-    const count = await products.count();
-    for (let i = 0; i < count; ++i) {
-        if (await products.nth(i).locator("b").textContent() === productName) {
-            //add to cart
-            await products.nth(i).locator("text= Add To Cart").click();
-            break;
-        }
-    }
-
-    await page.locator("[routerlink*='cart']").click();
-    //await page.pause();
-
-    await page.locator("div li").first().waitFor();
     const bool = await page.locator("h3:has-text('zara coat 3')").isVisible();
     expect(bool).toBeTruthy();
     await page.locator("text=Checkout").click();
-
-    await page.locator("[placeholder*='Country']").type("ind");
-
+    await page.locator("[placeholder*='Country']").fill("ind");
     const dropdown = page.locator(".ta-results");
     await dropdown.waitFor();
     const optionsCount = await dropdown.locator("button").count();
@@ -48,7 +33,6 @@ test('@Client App login', async ({ page }) => {
             break;
         }
     }
-
     await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
     await page.locator(".action__submit").click();
     await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
