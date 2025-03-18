@@ -18,10 +18,10 @@ test('@Client App login', async ({ page }) => {
     await dashboardPage.searchProductAddCart(productName);
     await dashboardPage.navigateToCart();
     await page.waitForLoadState('networkidle');
-    const bool = await page.locator("h3:has-text('zara coat 3')").isVisible();
+    const bool = await page.locator("h3:has-text('IPHONE 13 PRO')").isVisible();
     expect(bool).toBeTruthy();
     await page.locator("text=Checkout").click();
-    await page.locator("[placeholder*='Country']").fill("India");
+    await page.locator("[placeholder*='Country']").pressSequentially("ind");
     const dropdown = page.locator(".ta-results");
     await dropdown.waitFor();
     const optionsCount = await dropdown.locator("button").count();
