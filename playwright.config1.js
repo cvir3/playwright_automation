@@ -19,8 +19,14 @@ export default defineConfig({
         browserName: 'chromium',
         headless: false,
         screenshot: 'on',
+        video: 'retain-on-failure',
         trace: 'on',
-        ...devices['iPhone 11 Pro landscape']
+        viewport: null,
+        launchOptions: {
+          args: ['--start-maximized']
+        },
+        ignoreHTTPSErrors: true,
+        permissions: ['geolocation'],
       },
     },
     {
@@ -30,10 +36,7 @@ export default defineConfig({
         headless: false,
         screenshot: 'on',
         trace: 'on',
-        viewport: null,
-        launchOptions: {
-          args: ['--start-maximized']
-        },
+        ...devices['iPhone 11 Pro landscape']
       },
     },
   ]
