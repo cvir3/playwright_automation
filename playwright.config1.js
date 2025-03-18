@@ -20,10 +20,7 @@ export default defineConfig({
         headless: false,
         screenshot: 'on',
         trace: 'on',
-        viewport: null,
-        launchOptions: {
-          args: ['--start-maximized']
-        },
+        ...devices['iPhone 11 Pro landscape']
       },
     },
     {
