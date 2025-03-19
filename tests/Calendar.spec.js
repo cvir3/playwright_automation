@@ -1,7 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
 
-test("Calendar validation", async ({ page }) => {
+test("@somke Calendar validation", async ({ page }) => {
 
     const months = "2";
     const date = "28";
