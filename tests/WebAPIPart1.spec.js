@@ -1,5 +1,5 @@
 const { test, expect, request } = require('@playwright/test');
-const { API_Utilis } = require('./utilis/API_Utilis'); // This import is necessary to use the API_Utilis class
+const { API_Utilis } = require('../utilis/API_Utilis'); // This import is necessary to use the API_Utilis class
 
 const loginPayLoad = { userEmail: "qaops@yopmail.com", userPassword: "Test@12345" };
 const orderPayLoad = { "orders": [{ "country": "Cuba", "productOrderedId": "67a8dde5c0d3e6622a297cc8" }] }

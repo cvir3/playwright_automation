@@ -68,17 +68,15 @@ test('E2E flow', async ({ page }) => {
    await btnOrder.click();
    const rows = await page.locator("tbody tr");
 
-   for (let i =0; i< await rows.count(); ++i)
-   {
+   for (let i = 0; i < await rows.count(); ++i) {
       const rowOrderId = await rows.nth(i).locator("th").textContent();
-      if (getOrderId.includes(rowOrderId))
-      {
+      if (getOrderId.includes(rowOrderId)) {
          await rows.nth(i).locator("button").first().click();
          break;
       }
    }
    const orderIdDetails = await page.locator(".col-text").textContent();
-   expect(getOrderId.includes(orderIdDetails)).toBeTruthy(); 
+   expect(getOrderId.includes(orderIdDetails)).toBeTruthy();
 
 });
 
